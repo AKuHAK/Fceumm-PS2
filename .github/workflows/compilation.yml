@@ -32,7 +32,7 @@ jobs:
         name: Fceumm-PS2-${{ steps.slug.outputs.sha8 }}
         path: fceu.elf
 
-    - name: Create release
+    - name: Create release test
       if: github.ref == 'refs/heads/master'
       uses: marvinpinto/action-automatic-releases@latest
       with:
