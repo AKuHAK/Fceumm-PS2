@@ -29,7 +29,7 @@ jobs:
       if: ${{ success() }}
       uses: actions/upload-artifact@v2
       with:
-        name: Fceumm-PS2-${{ steps.slug.outputs.sha8 }}
+        name: ${{github.repository}}-${{ steps.slug.outputs.sha8 }}
         path: fceu.elf
 
     - name: Create release test
@@ -39,4 +39,4 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
         title: "Latest development build"
-        files: fceu.elf
+        files: './**/*.elf'
