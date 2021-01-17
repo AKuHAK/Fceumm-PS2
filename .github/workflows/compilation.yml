@@ -25,12 +25,17 @@ jobs:
       id: slug
       run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
 
+    - name: Get repository name
+      id: repname
+      run: |
+        echo ::set-output name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
+
     - name: Upload artifacts
       if: ${{ success() }}
       uses: actions/upload-artifact@v2
       with:
-        name: ${{github.repository}}-${{ steps.slug.outputs.sha8 }}
-        path: fceu.elf
+        name: ${{ steps.repname.outputs.REPOSITORY_NAME }}-${{ steps.slug.outputs.sha8 }}
+        path: './**/*.elf'
 
     - name: Create release test
       if: github.ref == 'refs/heads/master'
